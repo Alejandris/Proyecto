@@ -21,14 +21,15 @@ class habitacionesModel:
             return rooms
     
     @classmethod
-    def get_id_rooms(room_id):
+    def get_id_rooms(cls, room_id):
             """Obtiene un habitacion específico por su ID."""
             try:
                 conexion = DatabaseConnection().get_connection()
                 cursor = conexion.cursor(dictionary=True)
-                cursor.execute("SELECT * FROM rooms WHERE id = %s;", (room_id,))
-                rooms = cursor.fetchone()
-                return rooms
+                cursor.execute("SELECT * FROM rooms WHERE id_room = %s;", (room_id,))
+                room = cursor.fetchone()
+                print(f"📌 Resultado de la consulta para ID {room_id}: {room}")  # Depuración
+                return room
             except Exception as e:
                 print(f"❌ Error al obtener habitacion por ID: {e}")
                 return None
